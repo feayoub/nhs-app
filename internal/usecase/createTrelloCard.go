@@ -10,10 +10,11 @@ import (
 
 var (
 	boardIDSByResponsible = map[string]string{
-		"ANA":      "1",
-		"FERNANDA": "2",
-		"EVERSON":  "3",
-		"MARCELA":  "4",
+		"ANA":      "PE2najNK",
+		"FERNANDA": "ZJFk3iEG",
+		"EVERSON":  "oil3x0mt",
+		"MARCELA":  "sLPtCxtG",
+		"SARA":     "LyDxxGqi",
 	}
 )
 
