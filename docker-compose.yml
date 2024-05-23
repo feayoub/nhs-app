@@ -6,5 +6,5 @@ services:
           - 8080:8080
         env_file:
           - .env
-        env:
-          - TZ: America/Sao_Paulo
+        environment:
+          - TZ=America/Sao_Paulo
