@@ -1,0 +1,92 @@
+/* Estilo geral do contêiner de navegação */
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: #4CAF50;
+  border-radius: 10px;
+  margin: 20px auto;
+  width: 80%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo das opções de navegação */
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+nav a:hover {
+  background-color: #45a049;
+}
+
+/* Estilo geral do formulário */
+#form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  border: 2px solid #4CAF50;
+  border-radius: 10px;
+  width: 300px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+/* Estilo do campo de input de arquivo */
+#form input[type='file'] {
+  border: 2px solid #4CAF50;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+#form input[type='file']:hover {
+  border-color: #45a049;
+}
+
+/* Estilo do botão */
+#form button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#form button:hover {
+  background-color: #45a049;
+}
+
+/* Estilo da barra de progresso */
+#progress {
+  width: 100%;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#progress::-webkit-progress-bar {
+  background-color: #f3f3f3;
+  border-radius: 10px;
+}
+
+#progress::-webkit-progress-value {
+  background-color: #4CAF50;
+  border-radius: 10px 0 0 10px;
+}
+
+#progress::-moz-progress-bar {
+  background-color: #4CAF50;
+  border-radius: 10px 0 0 10px;
+}

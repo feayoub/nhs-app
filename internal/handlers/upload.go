@@ -27,20 +27,22 @@ func (h *uploadHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Read form file
 	_, header, err := r.FormFile("file")
 	if err != nil {
-		http.Redirect(w, r, "/", 500)
+		c := templates.UploadError(err.Error())
+		c.Render(r.Context(), w)
 		return
 	}
 
 	// Source
 	src, err := header.Open()
 	if err != nil {
-		http.Redirect(w, r, "/", 500)
+		c := templates.UploadError(err.Error())
+		c.Render(r.Context(), w)
 		return
 	}
 	defer src.Close()
 
-	if !strings.Contains(header.Filename, ".doc") && !strings.Contains(header.Filename, ".docx") {
-		c := templates.Home("Formato inválido")
+	if !strings.HasSuffix(header.Filename, ".doc") && !strings.HasSuffix(header.Filename, ".docx") {
+		c := templates.UploadError("Formato de arquivo inválido")
 		c.Render(r.Context(), w)
 		return
 	}
@@ -48,7 +50,8 @@ func (h *uploadHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Destination
 	dst, err := os.Create(header.Filename)
 	if err != nil {
-		http.Redirect(w, r, "/", 500)
+		c := templates.UploadError(err.Error())
+		c.Render(r.Context(), w)
 		return
 	}
 	defer dst.Close()
@@ -60,14 +63,15 @@ func (h *uploadHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	pubsString := extractPublicationsString(header.Filename)
 
 	useCaseInput := convertToUseCaseInput(pubsString)
+	_ = useCaseInput
 
-	if err = h.createTrelloCardUseCase.Execute(useCaseInput); err != nil {
-		http.Redirect(w, r, "/", 500)
-		return
-	}
+	// if err = h.createTrelloCardUseCase.Execute(useCaseInput); err != nil {
+	// 	http.Redirect(w, r, "/", 500)
+	// 	return
+	// }
 
 	w.WriteHeader(http.StatusOK)
-	c := templates.Home("")
+	c := templates.UploadSuccess()
 	c.Render(r.Context(), w)
 }
 

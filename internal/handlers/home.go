@@ -14,6 +14,6 @@ func NewHomeHandler() http.Handler {
 }
 
 func (h *homeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	c := templates.Home("")
-	c.Render(r.Context(), w)
+	c := templates.Home()
+	templates.Layout(c, "App").Render(r.Context(), w)
 }

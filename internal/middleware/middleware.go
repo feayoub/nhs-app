@@ -61,9 +61,10 @@ func CSPMiddleware(next http.Handler) http.Handler {
 		// Create a new Nonces struct for every request when here.
 		// move to outside the handler to use the same nonces in all responses
 		nonceSet := Nonces{
-			Htmx:        generateRandomString(16),
-			Tw:          generateRandomString(16),
-			HtmxCSSHash: "sha256-pgn1TCGZX6O77zDvy0oTODMOxemn0oj0LeCnQTRj7Kg=",
+			Htmx:            generateRandomString(16),
+			ResponseTargets: generateRandomString(16),
+			Tw:              generateRandomString(16),
+			HtmxCSSHash:     "sha256-pgn1TCGZX6O77zDvy0oTODMOxemn0oj0LeCnQTRj7Kg=",
 		}
 
 		// set nonces in context
@@ -123,6 +124,11 @@ func GetHtmxNonce(ctx context.Context) string {
 	nonceSet := GetNonces(ctx)
 
 	return nonceSet.Htmx
+}
+
+func GetResponseTargetsNonce(ctx context.Context) string {
+	nonceSet := GetNonces(ctx)
+	return nonceSet.ResponseTargets
 }
 
 func GetTwNonce(ctx context.Context) string {
