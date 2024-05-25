@@ -15,10 +15,10 @@ type key string
 var NonceKey key = "nonces"
 
 type Nonces struct {
-	Htmx            string
-	ResponseTargets string
-	Tw              string
-	HtmxCSSHash     string
+	Htmx        string
+	ProgressBar string
+	Style       string
+	HtmxCSSHash string
 }
 
 type Middleware func(http.Handler) http.Handler
@@ -61,19 +61,19 @@ func CSPMiddleware(next http.Handler) http.Handler {
 		// Create a new Nonces struct for every request when here.
 		// move to outside the handler to use the same nonces in all responses
 		nonceSet := Nonces{
-			Htmx:            generateRandomString(16),
-			ResponseTargets: generateRandomString(16),
-			Tw:              generateRandomString(16),
-			HtmxCSSHash:     "sha256-pgn1TCGZX6O77zDvy0oTODMOxemn0oj0LeCnQTRj7Kg=",
+			Htmx:        generateRandomString(16),
+			ProgressBar: generateRandomString(16),
+			Style:       generateRandomString(16),
+			HtmxCSSHash: "sha256-pgn1TCGZX6O77zDvy0oTODMOxemn0oj0LeCnQTRj7Kg=",
 		}
 
 		// set nonces in context
 		ctx := context.WithValue(r.Context(), NonceKey, nonceSet)
 		// insert the nonces into the content security policy header
-		cspHeader := fmt.Sprintf("default-src 'self'; script-src 'nonce-%s' 'nonce-%s' ; style-src 'nonce-%s' '%s';",
+		cspHeader := fmt.Sprintf("default-src 'self'; script-src 'nonce-%s' 'nonce-%s' ; style-src 'nonce-%s' '%s' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com/;",
 			nonceSet.Htmx,
-			nonceSet.ResponseTargets,
-			nonceSet.Tw,
+			nonceSet.ProgressBar,
+			nonceSet.Style,
 			nonceSet.HtmxCSSHash)
 		w.Header().Set("Content-Security-Policy", cspHeader)
 
@@ -126,16 +126,12 @@ func GetHtmxNonce(ctx context.Context) string {
 	return nonceSet.Htmx
 }
 
-func GetResponseTargetsNonce(ctx context.Context) string {
+func GetProgressBarNonce(ctx context.Context) string {
 	nonceSet := GetNonces(ctx)
-	return nonceSet.ResponseTargets
+	return nonceSet.ProgressBar
 }
 
-func GetTwNonce(ctx context.Context) string {
+func GetStyleNonce(ctx context.Context) string {
 	nonceSet := GetNonces(ctx)
-	return nonceSet.Tw
+	return nonceSet.Style
 }
-
-type UserContextKey string
-
-var UserKey UserContextKey = "user"

@@ -1,92 +1,104 @@
 /* Estilo geral do contêiner de navegação */
 nav {
   display: flex;
+  display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 10px;
-  background-color: #4CAF50;
-  border-radius: 10px;
-  margin: 20px auto;
-  width: 80%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+  justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #6734eb; /* Nova cor de fundo */
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed; /* Fixar no topo */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Garantir que fique acima de outros elementos */
 }
 
-/* Estilo das opções de navegação */
+/* Estilo da opção de navegação */
 nav a {
-  color: white;
-  text-decoration: none;
-  padding: 10px 20px;
-  margin: 0 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
 }
 
 nav a:hover {
-  background-color: #45a049;
+    background-color: #5e2fd7; /* Sombra mais escura da cor principal */
+}
+
+/* Estilo do ícone */
+nav a i {
+    margin-right: 8px; /* Espaço entre o ícone e o texto */
 }
 
 /* Estilo geral do formulário */
 #form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  padding: 20px;
-  border: 2px solid #4CAF50;
-  border-radius: 10px;
-  width: 300px;
-  margin: 0 auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinhar à esquerda */
+    gap: 15px;
+    padding: 20px;
+    border: 2px solid #6734eb; /* Nova cor da borda */
+    border-radius: 10px;
+    width: 300px;
+    margin: 70px auto 20px 20px; /* margem para alinhar à esquerda e espaço do topo para a navbar */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
 }
 
 /* Estilo do campo de input de arquivo */
 #form input[type='file'] {
-  border: 2px solid #4CAF50;
-  border-radius: 5px;
-  padding: 10px;
-  cursor: pointer;
-  transition: border-color 0.3s;
+    border: 2px solid #6734eb; /* Nova cor da borda */
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: border-color 0.3s;
 }
 
 #form input[type='file']:hover {
-  border-color: #45a049;
+    border-color: #5e2fd7; /* Sombra mais escura da cor principal */
 }
 
 /* Estilo do botão */
 #form button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+    background-color: #6734eb; /* Nova cor de fundo */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: center; /* Centralizar botão */
 }
 
 #form button:hover {
-  background-color: #45a049;
+    background-color: #5e2fd7; /* Sombra mais escura da cor principal */
 }
 
 /* Estilo da barra de progresso */
 #progress {
-  width: 100%;
-  height: 20px;
-  border-radius: 10px;
-  overflow: hidden;
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 #progress::-webkit-progress-bar {
-  background-color: #f3f3f3;
-  border-radius: 10px;
+    background-color: #f3f3f3;
+    border-radius: 10px;
 }
 
 #progress::-webkit-progress-value {
-  background-color: #4CAF50;
-  border-radius: 10px 0 0 10px;
+    background-color: #6734eb; /* Nova cor de fundo */
+    border-radius: 10px 0 0 10px;
 }
 
 #progress::-moz-progress-bar {
-  background-color: #4CAF50;
-  border-radius: 10px 0 0 10px;
+    background-color: #6734eb; /* Nova cor de fundo */
+    border-radius: 10px 0 0 10px;
 }

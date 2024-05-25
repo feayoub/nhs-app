@@ -24,3 +24,6 @@ build-deb:
    	templ generate && \
 	go generate ./cmd/main.go && \
 	go build -gcflags=all="-N -l" -o ${BINARY_NAME} ./cmd/main.go
+
+run: build
+	./${BINARY_NAME}

@@ -8,14 +8,19 @@ templ header(title string) {
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<script src="static/script/htmx.min.js" nonce={ middleware.GetHtmxNonce(ctx) }></script>
-		<script src="static/script/response-targets.js" nonce={ middleware.GetResponseTargetsNonce(ctx) }></script>
-        <link rel="stylesheet" href="static/css/style.css" nonce={ middleware.GetTwNonce(ctx) }/>
+		<script nonce={ middleware.GetProgressBarNonce(ctx) }>
+        		htmx.on('#form', 'htmx:xhr:progress', function(evt) {
+          		htmx.find('#progress').setAttribute('value', evt.detail.loaded/evt.detail.total * 100)
+        	});
+    	</script>
+        <link rel="stylesheet" href="static/css/style.css" nonce={ middleware.GetStyleNonce(ctx) }/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 	</head>
 }
 
 templ nav() {
 	<nav>
-        <a href="/">Home</a>
+        <a href="/"><i class="fas fa-home"></i></a>
     </nav>
 }
 
