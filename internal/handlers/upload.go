@@ -65,10 +65,11 @@ func (h *uploadHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	useCaseInput := convertToUseCaseInput(pubsString)
 	_ = useCaseInput
 
-	// if err = h.createTrelloCardUseCase.Execute(useCaseInput); err != nil {
-	// 	http.Redirect(w, r, "/", 500)
-	// 	return
-	// }
+	if err = h.createTrelloCardUseCase.Execute(useCaseInput); err != nil {
+		c := templates.UploadError(err.Error())
+		c.Render(r.Context(), w)
+		return
+	}
 
 	w.WriteHeader(http.StatusOK)
 	c := templates.UploadSuccess()
