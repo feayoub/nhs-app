@@ -125,9 +125,12 @@ func convertToUseCaseInput(pubsString []string) usecase.CreateTrelloCardInput {
 				continue
 			} else if i == 6 {
 				title = line
-				continue
+				if strings.ToUpper(title) == "NADA" {
+					comment, board, title, description = "", "", "", ""
+					break
+				}
 			}
-			if b, ok := usecase.GetBoardByResponsible(strings.ToUpper(strings.TrimSpace(line))); ok {
+			if b, ok := usecase.GetBoardByResponsible(strings.ToUpper(line)); ok {
 				if board != "" {
 					card := createCard(comment, board, title, description)
 					input.Cards = append(input.Cards, card)
@@ -137,10 +140,6 @@ func convertToUseCaseInput(pubsString []string) usecase.CreateTrelloCardInput {
 				continue
 			}
 			description += line + "\n"
-		}
-		if strings.Contains(strings.ToUpper(description), "NADA A FAZER") {
-			comment, board, title, description = "", "", "", ""
-			continue
 		}
 		cardInput := createCard(comment, board, title, description)
 		input.Cards = append(input.Cards, cardInput)
