@@ -114,7 +114,7 @@ func convertToUseCaseInput(pubsString []string) usecase.CreateTrelloCardInput {
 	input := usecase.CreateTrelloCardInput{}
 	for _, pub := range pubsString {
 		pubLine := strings.Split(pub, "\n")
-		var comment, owner, title, description string
+		var comment, board, title, description string
 		for i, line := range pubLine {
 			line = strings.TrimSpace(line)
 			if line == "" {
@@ -127,32 +127,31 @@ func convertToUseCaseInput(pubsString []string) usecase.CreateTrelloCardInput {
 				title = line
 				continue
 			}
-			if strings.HasPrefix(strings.ToUpper(line), "RESP") {
-				respRegex := regexp.MustCompile(`.+:`)
-				if owner != "" {
-					card := createCard(comment, owner, title, description)
+			if b, ok := usecase.GetBoardByResponsible(strings.ToUpper(strings.TrimSpace(line))); ok {
+				if board != "" {
+					card := createCard(comment, board, title, description)
 					input.Cards = append(input.Cards, card)
 					description = ""
 				}
-				owner = strings.TrimSpace(respRegex.ReplaceAllString(line, ""))
+				board = b
 				continue
 			}
 			description += line + "\n"
 		}
 		if strings.Contains(strings.ToUpper(description), "NADA A FAZER") {
-			comment, owner, title, description = "", "", "", ""
+			comment, board, title, description = "", "", "", ""
 			continue
 		}
-		cardInput := createCard(comment, owner, title, description)
+		cardInput := createCard(comment, board, title, description)
 		input.Cards = append(input.Cards, cardInput)
 	}
 	return input
 }
 
-func createCard(comment, owner, title, description string) usecase.Card {
+func createCard(comment, board, title, description string) usecase.Card {
 	return usecase.Card{
 		Comment:     comment,
-		Owner:       strings.ToUpper(owner),
+		Board:       board,
 		Title:       title,
 		Description: strings.TrimSuffix(description, "\n"),
 	}

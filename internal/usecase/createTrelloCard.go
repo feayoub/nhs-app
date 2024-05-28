@@ -15,6 +15,7 @@ var (
 		"EVERSON":  "oil3x0mt",
 		"MARCELA":  "sLPtCxtG",
 		"SARA":     "LyDxxGqi",
+		// "FELIPE":   "VwdF3dKW",
 	}
 )
 
@@ -30,7 +31,7 @@ type Card struct {
 	Comment     string
 	Description string
 	Title       string
-	Owner       string
+	Board       string
 }
 
 func NewCreateTrelloCardUseCase(trelloClient *trello.Client) UseCase {
@@ -46,8 +47,7 @@ func (u *createTrelloCardUseCase) Execute(inp any) error {
 	}
 
 	for _, card := range input.Cards {
-		boardID := boardIDSByResponsible[card.Owner]
-		board, err := u.trelloClient.GetBoard(boardID, trello.Defaults())
+		board, err := u.trelloClient.GetBoard(card.Board, trello.Defaults())
 		if err != nil {
 			return err
 		}
@@ -86,4 +86,9 @@ func mapToTrelloCard(inputCard Card) *trello.Card {
 		Desc: inputCard.Description,
 		Due:  &due,
 	}
+}
+
+func GetBoardByResponsible(owner string) (string, bool) {
+	board, ok := boardIDSByResponsible[owner]
+	return board, ok
 }
