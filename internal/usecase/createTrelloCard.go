@@ -57,13 +57,20 @@ func (u *createTrelloCardUseCase) Execute(inp any) error {
 			return err
 		}
 
+		var cardErrorsList []error
 		for _, list := range lists {
 			if strings.ToUpper(list.Name) == "REMANEJAR" {
 				cardToCreate := mapToTrelloCard(card)
-				list.AddCard(cardToCreate, trello.Defaults())
+				err := list.AddCard(cardToCreate, trello.Defaults())
+				if err != nil {
+					cardErrorsList = append(cardErrorsList, err)
+				}
 				cardToCreate.AddComment(card.Comment)
 				break
 			}
+		}
+		if len(cardErrorsList) > 0 {
+			return errors.Join(cardErrorsList...)
 		}
 	}
 
