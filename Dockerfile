@@ -11,6 +11,7 @@ RUN go install github.com/a-h/templ/cmd/templ@latest &&\
 FROM alpine:latest as run
 
 WORKDIR /app
+COPY static/ static/
 COPY --from=build /app/trello-app ./run
 
 EXPOSE 8080

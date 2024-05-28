@@ -1,11 +1,8 @@
 /* Estilo geral do contêiner de navegação */
 nav {
-  display: flex;
-  display: flex;
-  justify-content: center;
     display: flex;
-  justify-content: center;
-    align-items: center;
+  justify-content: flex-start;
+    align-items: start;
     padding: 10px;
     background-color: #6734eb; /* Nova cor de fundo */
     width: 100%;
